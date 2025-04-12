@@ -1,0 +1,424 @@
+@use "variables" as *;
+
+body {
+  background-color: $color-bg-main;
+  color: $color-text-light;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  background-color: transparent;
+  padding: 1.1rem 5%;
+  z-index: 999;
+
+  .nav-toggle {
+    visibility: hidden;
+  }
+
+  .nav-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      img {
+        width: 1.5rem;
+        height: auto;
+      }
+      p {
+        font-size: 1.4rem;
+        font-weight: 200;
+        margin: 0;
+      }
+    }
+    .nav {
+      border: 1px solid $color-bg-box;
+      background-color: $color-bg-dark;
+      border-radius: 0.7rem;
+
+      .nav-bar {
+        margin: 0;
+        padding: 0.4rem 0.4rem;
+        list-style: none;
+        display: flex;
+        gap: 0.1rem;
+        position: relative;
+
+        li {
+          padding: 0.2rem 0.9rem;
+          border-radius: 7px;
+          transition: border 0.3s ease;
+          will-change: transform;
+          position: relative;
+          z-index: 1;
+        }
+
+        .nav-item {
+          display: inline-block;
+          transition: all 0.3 ease;
+          position: relative;
+
+          &:hover {
+            @include gradient-text($color-text-light, $color-accent);
+          }
+        }
+
+        .nav-indicator {
+          position: absolute;
+          top: 0.4rem;
+          left: 0;
+          height: 70%;
+          background-color: $color-bg-light;
+          box-shadow: 0 0 7px $color-accent-soft;
+          border-radius: 0.4rem;
+          transition: all 0.3s ease;
+          z-index: 0;
+          opacity: 0;
+        }
+        a {
+          all: unset;
+          font-weight: 400;
+          font-size: 0.9rem;
+          color: $color-text-muted;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+.hero {
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .blobs {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+
+    .blob {
+      position: absolute;
+      width: 30%;
+      height: 30%;
+      border-radius: 50%;
+      filter: blur(6rem);
+      z-index: -1;
+      opacity: 1;
+      &.blob-blue {
+        background: $color-accent;
+
+        &.one {
+          top: -10%;
+          left: 65%;
+          width: 40%;
+          height: 40%;
+          animation: blobMove1 15s ease-in-out infinite;
+          z-index: 0;
+        }
+        &.two {
+          top: 40%;
+          left: 55%;
+          animation: blobMove2 18s ease-in-out infinite;
+        }
+        &.three {
+          top: 10%;
+          right: 35%;
+          width: 35%;
+          height: 35%;
+          animation: blobMove1 20s ease-in-out infinite;
+          z-index: -1;
+        }
+        &.four {
+          top: 60%;
+          right: -5%;
+          animation: blobMove2 17s ease-in-out infinite;
+        }
+        &.five {
+          top: 70%;
+          left: 20%;
+          width: 25%;
+          height: 25%;
+          animation: blobMove2 19s ease-in-out infinite;
+        }
+        &.six {
+          top: -5%;
+          left: 45%;
+          width: 20%;
+          height: 20%;
+          animation: blobMove1 16s ease-in-out infinite;
+        }
+        &.seven {
+          top: 50%;
+          left: 5%;
+          width: 20%;
+          height: 20%;
+          animation: blobMove2 20s ease-in-out infinite;
+        }
+        &.eight {
+          top: 30%;
+          left: 10%;
+          width: 30%;
+          height: 30%;
+          animation: blobMove1 16s ease-in-out infinite;
+        }
+        &.nine {
+          top: 37%;
+          right: 5%;
+          width: 20%;
+          height: 20%;
+          animation: blobMove2 60s ease-in-out infinite;
+        }
+      }
+
+      &.blob-dark {
+        background: rgb(0, 0, 0);
+        opacity: 0.9;
+
+        &.one {
+          top: -5%;
+          left: -5%;
+          width: 45%;
+          height: 45%;
+          animation: blobMove1 22s ease-in-out infinite;
+        }
+        &.two {
+          top: 40%;
+          left: 3%;
+          width: 30%;
+          height: 30%;
+          animation: blobMove2 5s ease-in-out infinite reverse;
+          z-index: -1;
+        }
+        &.three {
+          top: 60%;
+          right: 2%;
+          width: 40%;
+          height: 40%;
+          animation: blobMove1 23s ease-in-out infinite;
+        }
+        &.four {
+          bottom: 35%;
+          left: 55%;
+          width: 35%;
+          height: 35%;
+          animation: blobMove2 12s ease-in-out infinite reverse;
+        }
+        &.five {
+          bottom: 40%;
+          left: 45%;
+          width: 35%;
+          height: 35%;
+          animation: blobMove2 9s ease-in-out infinite reverse;
+          z-index: -3;
+        }
+        &.six {
+          bottom: -10%;
+          left: 25%;
+          width: 35%;
+          height: 35%;
+          animation: blobMove2 13s ease-in-out infinite reverse;
+        }
+      }
+    }
+  }
+
+  .hero-content {
+    position: relative;
+    top: -1rem;
+    z-index: 2;
+    text-align: center;
+    max-width: 90%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    .hero-title {
+      font-size: 9rem;
+      font-weight: 500;
+      margin-bottom: 1.3rem;
+      @include gradient-text($color-text-light, $color-accent-soft);
+    }
+    .hero-subtitle {
+      font-weight: 400;
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero-btns {
+      background-color: $color-bg-dark;
+      border-radius: 0.7rem;
+      padding: 0.3rem;
+      display: flex;
+      gap: 0.3rem;
+
+      .btn {
+        all: unset;
+        padding: 0.5rem 1.1rem;
+        display: inline-block;
+        border-radius: 0.7rem;
+        font-size: 0.9rem;
+        color: $color-text-muted;
+
+        &:hover {
+          box-shadow: 0 0 5px $color-accent-soft;
+          @include gradient-text(
+            $color-text-light,
+            $color-accent-soft
+          );
+        }
+      }
+
+      .btn-secondary {
+        display: flex;
+        gap: 0.6rem;
+        align-items: center;
+        > img {
+          width: 0.9rem;
+          height: 0.8rem;
+        }
+      }
+    }
+  }
+
+  .gradient-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30px; /* výška prechodu */
+    background: linear-gradient(to bottom, transparent, #0a0a0a);
+    pointer-events: none;
+    z-index: 1;
+  }
+}
+
+.about-us {
+  width: 100%;
+  min-height: clamp(320px, 67vh, 650px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    top: 4rem;
+
+    > h2 {
+      font-size: 3.5rem;
+      text-align: center;
+      font-weight: 400;
+      line-height: 1.3;
+      margin-bottom: 2rem;
+      @include gradient-text($color-text-light, $color-accent-soft);
+    }
+
+    .btn {
+      all: unset;
+      padding: 0.5rem 1.1rem;
+      display: inline-block;
+      border-radius: 0.7rem;
+      font-size: 0.9rem;
+      color: $color-text-muted;
+      box-shadow: 0 0 3px $color-accent;
+      background-color: $color-bg-light;
+      cursor: pointer;
+
+      .btn-text {
+        @include gradient-text($color-text-light, $color-accent);
+      }
+    }
+  }
+
+  .background-text {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 33rem;
+    font-weight: 400;
+    z-index: -1;
+    opacity: 0.07;
+    line-height: 1;
+    @include gradient-text(
+      $color-text-light,
+      $color-accent-soft,
+      to bottom
+    );
+  }
+}
+
+.what-we-do {
+  padding: 5rem 1.6rem;
+  .service-heading {
+    font-size: 5.8rem;
+    width: 45%;
+    font-weight: 400;
+    margin-bottom: 2.5rem;
+    @include gradient-text(
+      $color-text-light,
+      $color-accent-soft,
+      90deg
+    );
+  }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1rem;
+
+      .service-card {
+        background-color: $color-bg-dark;
+        padding: 2rem;
+        border: 1px solid $color-bg-box;
+        border-radius: 0.7rem;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        color: $color-text-muted;
+
+        .card-preview {
+          .chat-simulation {
+            padding: 1.2rem;
+            border: 1px solid $color-bg-box;
+            border-radius: 0.7rem;
+            font-size: 0.9rem;
+
+            .chat {
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              gap: 1rem;
+              > span {
+                font-size: 1.3rem;
+                padding: 0.6rem;
+                border: 1px solid $color-bg-box;
+                border-radius: 0.7rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
