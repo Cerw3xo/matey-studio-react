@@ -8,7 +8,9 @@ const Navbar = () => {
   const [hasHovered, setHasHovered] = useState(false);
 
   const handleHover = (e) => {
-    const rect = e.target.getBoundingClientRect();
+    const rect = e.currentTarget
+      .querySelector(".nav-item")
+      ?.getBoundingClientRect();
     const parentRect = navRef.current.getBoundingClientRect();
 
     const newStyle = {

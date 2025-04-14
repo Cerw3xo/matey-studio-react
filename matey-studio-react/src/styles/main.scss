@@ -40,7 +40,7 @@ body {
     }
     .nav {
       border: 1px solid $color-bg-box;
-      background-color: $color-bg-dark;
+      background-color: $color-bg-main;
       border-radius: 0.7rem;
 
       .nav-bar {
@@ -48,39 +48,36 @@ body {
         padding: 0.4rem 0.4rem;
         list-style: none;
         display: flex;
-        gap: 0.1rem;
         position: relative;
 
         li {
-          padding: 0.2rem 0.9rem;
           border-radius: 7px;
           transition: border 0.3s ease;
           will-change: transform;
           position: relative;
           z-index: 1;
           cursor: pointer;
-        }
 
-        .nav-item {
-          display: inline-block;
-          transition: all 0.3 ease;
-          position: relative;
-
-          &:hover {
+          &:hover .nav-item {
             @include gradient-text($color-text-light, $color-accent);
           }
         }
 
+        .nav-item {
+          display: inline-block;
+          padding: 0.2rem 0.9rem;
+          transition: all 0.3 ease;
+          position: relative;
+        }
+
         .nav-indicator {
           position: absolute;
-          top: 0.4rem;
           height: 70%;
           background-color: $color-bg-light;
           box-shadow: 0 0 7px $color-accent-soft;
           border-radius: 0.4rem;
           transition: all 0.3s ease;
           z-index: 0;
-          opacity: 0;
         }
         a {
           all: unset;
@@ -198,11 +195,13 @@ body {
     }
 
     .hero-btns {
-      background-color: $color-bg-dark;
+      background-color: $color-bg-main;
       border-radius: 0.7rem;
       padding: 0.3rem;
       display: flex;
+      align-items: center;
       gap: 0.3rem;
+      position: relative;
 
       .btn {
         all: unset;
@@ -211,13 +210,10 @@ body {
         border-radius: 0.7rem;
         font-size: 0.9rem;
         color: $color-text-muted;
+        z-index: 1;
 
         &:hover {
-          box-shadow: 0 0 5px $color-accent-soft;
-          @include gradient-text(
-            $color-text-light,
-            $color-accent-soft
-          );
+          @include gradient-text($color-text-light, $color-accent);
         }
       }
 
@@ -230,6 +226,17 @@ body {
           height: 0.8rem;
         }
       }
+
+      .hero-indicator {
+        position: absolute;
+        opacity: 0;
+        height: 70%;
+        background-color: transparent;
+        box-shadow: 0 0 7px $color-accent-soft;
+        border-radius: 0.4rem;
+        transition: all 0.3s ease;
+        z-index: 0;
+      }
     }
   }
 
@@ -238,7 +245,7 @@ body {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 30px; /* výška prechodu */
+    height: 30px;
     background: linear-gradient(to bottom, transparent, #0a0a0a);
     pointer-events: none;
     z-index: 1;
@@ -247,6 +254,7 @@ body {
 
 .about-us {
   width: 100%;
+
   min-height: clamp(320px, 67vh, 650px);
   display: flex;
   align-items: center;
@@ -307,6 +315,8 @@ body {
 
 .what-we-do {
   padding: 5rem 1.6rem;
+  max-width: 1440px;
+  margin: 0 auto;
   .service-heading {
     font-size: 5.8rem;
     width: 45%;
@@ -319,45 +329,310 @@ body {
     );
   }
   .container {
-    max-width: 1200px;
-    margin: 0 auto;
-
     .services-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 1rem;
 
       .service-card {
+        position: relative;
         background-color: $color-bg-dark;
-        padding: 2rem;
+        padding: 2.7rem 2.3rem 3.5rem;
         border: 1px solid $color-bg-box;
         border-radius: 0.7rem;
         display: flex;
         justify-content: space-between;
         flex-direction: column;
+        gap: 2.6rem;
         color: $color-text-muted;
+        height: 100%;
+        align-items: stretch;
+        overflow: hidden;
+
+        .glow {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 70%;
+          height: 4px;
+          background: radial-gradient(
+            circle at top center,
+            $color-accent-soft,
+            transparent
+          );
+          border-radius: 100%;
+          filter: blur(3rem);
+          opacity: 0.2rem;
+          background-color: $color-accent-soft;
+          z-index: 0;
+        }
+
+        &::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 0.1rem;
+          width: 100%;
+          background: radial-gradient(
+            ellipse at top center,
+            $color-accent,
+            transparent 80%
+          );
+          box-shadow: 0px 6px 11px -11px $color-accent;
+          pointer-events: none;
+          z-index: 1;
+        }
 
         .card-preview {
+          display: flex;
+          flex-direction: column;
+          gap: 2rem;
+          flex: 1;
           .chat-simulation {
-            padding: 1.2rem;
+            padding: 1.3rem;
             border: 1px solid $color-bg-box;
             border-radius: 0.7rem;
             font-size: 0.9rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.3rem;
+            flex: 1;
 
             .chat {
               display: flex;
               flex-direction: row;
               align-items: center;
               gap: 1rem;
+
+              .chat-ai {
+                box-shadow: 0px -1px 3px 0.3px $color-accent-soft;
+              }
               > span {
-                font-size: 1.3rem;
-                padding: 0.6rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: $color-text-light;
+                font-weight: 200;
+                font-size: 1.1rem;
+                width: 3rem;
+                height: 3rem;
                 border: 1px solid $color-bg-box;
-                border-radius: 0.7rem;
+                border-radius: 0.35rem;
+                aspect-ratio: 1/1;
+              }
+
+              .chat-message {
+                display: flex;
+                flex-direction: column;
+
+                .chat-author {
+                  font-size: 0.9rem;
+                  font-weight: 500;
+                  margin-bottom: 0.1rem;
+                  strong {
+                    @include gradient-text(
+                      $color-text-light,
+                      $color-accent-soft
+                    );
+                    font-weight: 500;
+                  }
+                }
+
+                > p {
+                  font-weight: 300;
+                }
               }
             }
           }
+
+          .chat-input {
+            padding: 0.5rem 1.3rem;
+            border: 1px solid $color-bg-box;
+            border-radius: 0.35rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            span {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 2rem;
+              aspect-ratio: 1/1;
+              border: 1px solid $color-bg-box;
+              border-radius: 0.35rem;
+              font-size: 1.5rem;
+              font-weight: 200;
+              line-height: 0.9rem;
+            }
+
+            > p {
+              width: 70%;
+              font-size: 0.9rem;
+              font-weight: 400;
+              text-align: left;
+            }
+
+            .input-arrow {
+              width: 1.9rem;
+              height: 1.9rem;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              border-radius: 0.3rem;
+              box-shadow: 1px 1px 3px 0.3px $color-accent-soft;
+
+              img {
+                width: 0.8rem;
+                height: auto;
+                rotate: 270deg;
+              }
+            }
+          }
+
+          .image-simulation {
+            border: 1px solid $color-bg-box;
+            border-radius: 0.35rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            gap: 2.6rem;
+
+            .particles {
+              position: absolute;
+              height: 1px;
+              width: 1px;
+              top: 2px;
+              background-color: white;
+            }
+
+            p {
+              font-size: 0.9rem;
+              @include gradient-text(
+                $color-text-light,
+                $color-accent-soft,
+                90deg
+              );
+              border: 1px solid $color-bg-box;
+              border-radius: 0.35rem;
+              padding: 0.47rem 0.8rem;
+            }
+          }
+          .image-input {
+            padding: 0.55rem 1.3rem;
+            border: 1px solid $color-bg-box;
+            border-radius: 0.35rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            > p {
+              font-size: 0.9rem;
+            }
+
+            .generate-btn {
+              all: unset;
+              font-size: 0.9rem;
+              font-weight: 500;
+              @include gradient-text(
+                $color-text-light,
+                $color-accent,
+                90deg
+              );
+              border: 1px solid $color-bg-box;
+              border-radius: 0.35rem;
+              padding: 0.22rem 0.55rem;
+              box-shadow: 0px 0px 1px 1px $color-accent-soft;
+            }
+          }
         }
+
+        .card-heading {
+          > h3 {
+            font-size: 1.95rem;
+            color: $color-text-light;
+            font-weight: 500;
+            margin-bottom: 1rem;
+          }
+
+          > p {
+            font-size: 0.9rem;
+            font-weight: 400;
+          }
+        }
+      }
+    }
+  }
+
+  .services-detail {
+    margin-top: 1.6rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.7rem;
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid $color-bg-box;
+      padding: 3rem 1.7rem;
+      background-color: $color-bg-dark;
+      border-radius: 0.7rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.3rem;
+
+      .glow {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 70%;
+        height: 8px;
+        background: radial-gradient(
+          circle at top center,
+          $color-accent-soft,
+          transparent
+        );
+        border-radius: 100%;
+        filter: blur(3rem);
+        opacity: 0.2rem;
+        background-color: $color-accent-soft;
+        z-index: 0;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 0.1rem;
+        width: 100%;
+        background: radial-gradient(
+          ellipse at top center,
+          $color-accent,
+          transparent 80%
+        );
+        box-shadow: 0px 6px 11px -11px $color-accent;
+        pointer-events: none;
+        z-index: 1;
+      }
+      .card-effect {
+        min-height: 200px;
+      }
+      .card-title {
+        font-size: 2.3rem;
+        font-weight: 400;
+      }
+
+      .card-desc {
+        font-size: 0.95rem;
+        color: $color-text-muted;
+        width: 94%;
       }
     }
   }

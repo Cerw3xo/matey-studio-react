@@ -1,8 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import arrow from "../assets/arrow.png";
 import { animate, motion, useScroll } from "framer-motion";
 
 const Hero = () => {
+  const [indicatorStyle, setIndicatorStyle] = useState({});
+  const btnRef = useRef(null);
+  const [hasHovered, setHasHovered] = useState(false);
+
+  const handleHover = (e) => {
+    const rect = e.target.getBoundingClientRect();
+    const parentRect = btnRef.current.getBoundingClientRect();
+
+    const newStyle = {
+      width: `${rect.width}px`,
+      left: `${rect.left - parentRect.left}px`,
+      opacity: 1,
+    };
+
+    if (!hasHovered) {
+      newStyle.transition = "none";
+      setHasHovered(true);
+    }
+    setIndicatorStyle(newStyle);
+  };
+
   const blobs = [
     {
       className: "blob blob-blue one",
@@ -155,13 +176,27 @@ const Hero = () => {
         <p className="hero-subtitle">
           We develop custom AI solutions for innovative companies.
         </p>
-        <div className="hero-btns">
-          <a href="" className="btn btn-primary">
+        <div className="hero-btns" ref={btnRef}>
+          <a
+            href=""
+            className="btn btn-primary"
+            onMouseEnter={handleHover}
+            onMouseLeave={() => setIndicatorStyle({ opacity: 0 })}
+          >
             our services
           </a>
-          <a href="" className="btn btn-secondary">
+          <a
+            href=""
+            className="btn btn-secondary"
+            onMouseEnter={handleHover}
+            onMouseLeave={() => setIndicatorStyle({ opacity: 0 })}
+          >
             contact us <img src={arrow} alt="" />
           </a>
+          <span
+            className="hero-indicator"
+            style={indicatorStyle}
+          ></span>
         </div>
       </div>
 

@@ -1,13 +1,13 @@
 $color-bg-dark: #0d0d0d;
-$color-bg-main: #0a0a0a;
 $color-bg-medium: #0f0f0f;
+$color-bg-main: #0a0a0a;
 $color-bg-light: #161616;
 $color-bg-box: #222222;
-
+$color-glow: rgb(98, 177, 237);
 $color-text-light: #ffffff;
 $color-text-muted: #9c9c9c;
 
-$color-accent: #70befa;
+$color-accent: rgb(98, 177, 237);
 $color-accent-soft: #70befabf;
 
 @mixin gradient-text($from, $to, $direction: to right) {
