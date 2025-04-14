@@ -501,12 +501,15 @@ body {
             justify-content: center;
             flex: 1;
             gap: 2.6rem;
+            position: relative;
+            overflow: hidden;
 
             .particles {
               position: absolute;
-              height: 1px;
+              height: 2px;
               width: 1px;
-              top: 2px;
+              top: 50%;
+              left: 50%;
               background-color: white;
             }
 

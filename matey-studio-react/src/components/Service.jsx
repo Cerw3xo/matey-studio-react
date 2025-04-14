@@ -1,9 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import arrow from "../assets/arrow.png";
 import { motion } from "framer-motion";
 
 const Service = () => {
-  const particles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [particles, setParticles] = useState([]);
+  const [trigger, setTrigger] = useState(false);
+
+  useEffect(() => {
+    const generateParticles = () => {
+      const newParticles = Array(10)
+        .fill()
+        .map(() => {
+          const angle = Math.random() * 2 * Math.PI;
+          const distance = 300 + Math.random() * 400;
+          return {
+            x: Math.cos(angle) * distance,
+            y: Math.sin(angle) * distance,
+          };
+        });
+
+      setParticles(newParticles);
+    };
+    generateParticles();
+  }, [setTrigger]);
 
   return (
     <>
@@ -77,7 +97,16 @@ const Service = () => {
               <div className="card-preview">
                 <div className="image-simulation">
                   {particles.map((part, i) => (
-                    <motion.div key={i} className="particles" />
+                    <motion.div
+                      key={i}
+                      className="particles"
+                      initial={{ x: 0, y: 0 }}
+                      animate={{ x: part.x, y: part.y }}
+                      transition={{ duration: 10, ease: "linear" }}
+                      onAnimationComplete={() =>
+                        setTrigger((prev) => !prev)
+                      }
+                    />
                   ))}
                   <p>Generating image...</p>
                 </div>
